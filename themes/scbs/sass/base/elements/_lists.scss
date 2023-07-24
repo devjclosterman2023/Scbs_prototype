@@ -1,0 +1,49 @@
+ul,
+ol {
+	margin: 0;
+}
+
+ul {
+	list-style: disc;
+}
+
+ol {
+	list-style: decimal;
+}
+
+li>ul,
+li>ol {
+	margin-bottom: 0;
+	margin-left: 0;
+}
+
+dt {
+	font-weight: 700;
+}
+
+dd {
+	margin: 0 1.5em 1.5em;
+}
+
+.blue-list {
+	gap: 0;
+	width: 75%;
+	margin: 0 auto;
+
+	ul {
+		list-style-type: none;
+	}
+
+	li {
+		line-height: 1.2;
+		font-weight: 500;
+		padding-bottom: 15px;
+
+		&::before {
+			content: "•";
+			color: #6B96BB;
+			display: inline-block;
+			width: 1em;
+		}
+	}
+}

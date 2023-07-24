@@ -1,0 +1,355 @@
+.sticky {
+	display: block;
+}
+
+.post,
+.page {
+	margin: 0;
+}
+
+.updated:not(.published) {
+	display: none;
+}
+
+.page-content,
+.entry-content,
+.entry-summary {
+	margin: 0;
+}
+
+.page-links {
+	clear: both;
+	margin: 0;
+}
+
+.footer-top {
+	background: url('http://scbs.local/wp-content/uploads/2023/06/Group-203@2x.png');
+	background-size: cover;
+	height: 650px;
+
+}
+
+
+.footer-info {
+	display: flex;
+	justify-content: space-between;
+	width: 75%;
+	margin: 0 auto;
+	gap: 20px;
+	padding-top: 50px;
+
+}
+
+.footer-testimonial {
+	width: 866px;
+	min-height: 456px;
+	background: #F7F5F4;
+	display: flex;
+	align-items: center;
+	border-radius: 50px;
+
+	&-header {
+		font-size: 60px;
+		color: #0E4F9D;
+		text-decoration: underline;
+		position: relative;
+		height: fit-content;
+		writing-mode: tb-rl;
+		transform: rotate(-180deg);
+	}
+
+
+	// footer google testimonials classes
+	.wp-gr .grw-slider:not(.wp-dark) .grw-slider-review-inner.grw-slider-review-border {
+		background: #F7F5F4 !important;
+		box-shadow: none !important;
+	}
+
+	.grw-slider-reviews {
+		position: relative !important;
+		right: 30px !important; 
+		max-width: 725px !important;
+	}
+
+	.grw-slider-review {
+		flex: 100% !important;
+	}
+
+	.wp-gr .grw-row-s .grw-slider-header+.grw-slider-content {
+		flex: 100% !important;
+	}
+
+	.grw-slider-content {
+		flex: 100% !important;
+	}
+
+	.wp-google-review {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	.grw-slider-dots {
+		display: none !important;
+	}
+
+	.wp-google-left {
+		img {
+			display: none;
+		}
+
+		.wp-google-time {
+			display: none;
+		}
+
+		.wp-google-name {
+			font-size: 22px !important;
+		}
+	}
+
+	.wp-gr .grw-slider .wp-google-feedback {
+		height: fit-content !important;
+		position: relative !important;
+		top: 25px !important;
+		padding-bottom: 20px !important;
+
+		.wp-google-text {
+			font-size: 22px !important;
+			font-family: $secondary-font !important;
+		}
+
+		
+	}
+	.wp-gr .grw-slider .grw-slider-btns.grw-slider-next{
+		right: 15px !important;
+
+	}
+
+	.wp-google-left .wp-google-name a {
+		font-size: 21px !important;
+		width: fit-content !important;
+	}
+
+	.wp-gr .grw-slider .grw-slider-review-inner>svg {
+		position: static !important;
+	}
+
+	.grw-slider-prev {
+		display: none !important;
+	}
+
+}
+
+
+.footer-partners {
+	height: 456px;
+	min-width: 459px;
+	background: #F7F5F4;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 50px;
+	border-radius: 50px;
+
+
+	img {
+		margin: 0 auto;
+		width: 33%;
+	}
+}
+
+.footer-bottom {
+	min-height: 307px;
+	background: #0E4F9D;
+	position: relative;
+	z-index: 2;
+	&::after {
+		background: #0E4F9D;
+		border-radius: 100%;
+		position: absolute;
+		height: 150px;
+		content: ' ';
+		top: -70px;
+		left: 0;
+		// top: -45px;
+		z-index: 1;
+		width: 100%;
+		margin: 0 auto;
+
+	}
+}
+
+.footer-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 60px;
+
+	ul {
+		display: flex;
+		li {
+			list-style-type: none;
+			margin-right: 45px;
+		}
+		a {
+			color: white;
+			list-style: none;
+			text-decoration: none;
+			font-size: 24px;
+			font-family: $primary-font;
+		}
+	}
+}
+
+.footer_details {
+	color: white;
+	font-size: 24px;
+	width: 70%;
+	margin: 0 auto;
+	padding-top: 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 50px;
+	p {
+		margin: 0;
+		padding: 0;
+		line-height: 1.1;
+		a {
+			color: white;
+			text-decoration: none;
+
+		}
+	}
+
+	i {
+		color: white;
+		font-size: 40px;
+	}
+
+	&-socials {
+		display: flex;
+		gap: 25px;
+	}
+}
+
+.footer_copyright {
+	height: 99px;
+	width: 100%;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #152136;
+
+	p {
+		font-size: 24px;
+		// font-family: $primary-font;
+		margin: 0;
+
+	}
+
+}
+
+@media screen and (max-width: 1700px) {
+	.footer-info {
+		width: 95%;
+	}
+}
+
+@media screen and (max-width: 1400px){
+	.footer-top {
+		height: fit-content !important;
+		padding-bottom: 50px;
+	}
+
+	.footer-testimonial {
+		margin: 0 auto;
+	}
+	.footer-info {
+		flex-direction: column;
+	}
+
+	.footer-partners {
+		height: fit-content;
+	}
+
+	.footer-nav {
+		width: 95%;
+	}
+}
+
+@media screen and (max-width: 1200px){
+	.footer-nav {
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.footer_details {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 1000px){
+	.footer-nav #primary-menu {
+		flex-direction: column;
+		.menu-item {
+			margin: 0 auto;
+		}
+	}
+
+	.footer_details {
+		flex-direction: column;
+		gap: 20px;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 900px){
+	.footer-top {
+		height: fit-content !important;
+		padding-bottom: 100px;
+	}
+
+	.footer-testimonial {
+		width: 90% !important;
+		flex-direction: column;
+
+
+
+		&-header {
+			font-size: 45px;
+			color: #0E4F9D;
+			text-decoration: underline;
+			position: relative;
+			height: fit-content;
+			writing-mode: unset;
+			transform: rotate(-0);
+		}
+
+		.grw-slider-review {
+			height: fit-content !important;
+		}
+	}
+
+	.footer-partners {
+		display: grid;
+		height: fit-content !important;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+	}
+
+	.footer-testimonial .grw-slider-reviews {
+		max-width: 65vw !important;
+	}
+}
+
+@media screen and (max-width: 480px){
+	.footer-partners {
+		grid-template-columns: 1fr;
+		padding: 0;
+		min-width: 90%;
+		margin: 0 auto;
+		padding: 40px 0px;
+	}
+}

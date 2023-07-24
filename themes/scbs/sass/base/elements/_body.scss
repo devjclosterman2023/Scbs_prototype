@@ -1,0 +1,565 @@
+body {
+    background: #F7F5F4;
+}
+
+.entry-title {
+    display: none;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.lh-1 {
+    line-height: 1;
+}
+
+.w-40 {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.w-45 {
+    width: 45%;
+    margin: 0 auto;
+    max-width: 1920px !important;
+
+}
+
+.w-60 {
+    width: 60%;
+    margin: 0 auto;
+    max-width: 1920px !important;
+
+}
+
+.w-65 {
+    width: 65%;
+    margin: 0 auto;
+    max-width: 1920px !important;
+
+}
+
+.w-70 {
+    width: 70%;
+    margin: 0 auto;
+    max-width: 1920px !important;
+
+}
+
+.w-80 {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1920px !important;
+
+}
+
+.w-90 {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1920px !important;
+}
+
+.h-500 {
+    height: 500px;
+}
+
+.max-w-350 {
+    max-width: 350px;
+}
+
+.max-w-400 {
+    max-width: 400px
+}
+
+.max-w-450 {
+    max-width: 450px;
+}
+
+.max-w-500 {
+    max-width: 500px;
+}
+
+.max-w-575 {
+    max-width: 575px;
+}
+
+.max-w-675 {
+    max-width: 675px;
+}
+
+.max-w-700 {
+    max-width: 700px;
+}
+
+
+.max-w-750 {
+    max-width: 750px;
+}
+
+.max-w-935 {
+    max-width: 935px;
+}
+
+.min-height-100 {
+    min-height: 100% !important;
+}
+
+.min-width-fit {
+    min-width: fit-content;
+}
+
+.cover_contain img {
+    object-fit: contain !important;
+}
+
+;
+
+.font-600 {
+    font-weight: 600px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-align-space {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.flex-col-align-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-col-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-col-justify-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-left {
+    justify-content: left;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.gap-0 {
+    gap: 0;
+}
+
+.m-0 {
+    margin: 0 !important;
+}
+
+.mx-0 {
+    margin: 0 auto !important;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.p-50 {
+    padding: 50px;
+}
+
+.p-0 {
+    padding: 0;
+}
+
+.pt-20 {
+    padding-top: 20px;
+}
+
+.pt-30 {
+    padding-top: 30px;
+}
+
+.p-30 {
+    padding: 30px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.pb-30 {
+    padding-bottom: 30px;
+}
+
+.pb-40 {
+    padding-bottom: 40px;
+}
+
+.py-30 {
+    padding: 30px 0px;
+}
+
+.py-20 {
+    padding: 20px 0px;
+}
+
+.border-radius-50 {
+    border-radius: 50px;
+}
+
+.border-radius-100 {
+    border-radius: 100px;
+    height: 128px !important;
+    width: 98%;
+    margin: 0 auto;
+}
+
+.border-radius-25 {
+    border-radius: 25px;
+}
+
+.menu-menu-1-container {
+    height: 100% !important;
+}
+
+.position-left-50 {
+    position: relative;
+    left: 50px;
+}
+
+.blue-section-title {
+    font-size: 60px;
+    width: 1400px;
+    background: #0E4F9D;
+    min-height: 72px;
+    margin: 0 auto;
+    border-radius: 50px;
+    color: white;
+}
+
+// css to create concave on top of element
+.concave_top {
+    height: 500px;
+    position: relative;
+
+    ::before {
+        box-shadow: 0 0 0 80px #000;
+        border-radius: 100%;
+        position: absolute;
+        height: 150px;
+        /* You can change height to increase or decrease concave radius */
+        content: '';
+        right: -20%;
+        left: -20%;
+        top: 0;
+    }
+}
+
+
+.inner-group-65 {
+    .wp-block-group__inner-container {
+        width: 65%;
+        margin: 0 auto;
+    }
+}
+
+.our_services {
+    max-width: 1920px !important;
+    margin: 0 auto;
+}
+
+
+.border-content {
+    position: relative;
+
+    &::after {
+        position: absolute;
+        content: url("http://scbs.local/wp-content/uploads/2023/05/left-tabs.svg");
+        top: 0;
+        // background-repeat: no-repeat;
+        left: 5%;
+    }
+
+    &::before {
+        position: absolute;
+        content: url("http://scbs.local/wp-content/uploads/2023/05/right-tabs.svg");
+        top: 0;
+        right: 5%;
+        // background-repeat: no-repeat;
+
+    }
+}
+
+.blue-list {
+    text-align: center !important;
+}
+
+.service_column {
+    width: 70%;
+    margin: 0 auto;
+
+    .wp-block-buttons>.wp-block-button.wp-block-button__width-75 {
+        width: 85%;
+    }
+}
+
+.storm-restoration {
+    position: relative;
+    top: 2px;
+    right: 15px;
+}
+
+.service_column-img {
+    figure {
+        height: 429px;
+        width: 935px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 50px;
+        }
+    }
+}
+
+
+.service_column-left {
+    min-width: fit-content !important;
+
+}
+
+.grw-slider-header {
+    display: none !important;
+}
+
+@media screen and (max-width: 1700px) {
+    .service_column-img {
+        min-width: auto !important;
+        flex-basis: 50% !important;
+
+        figure {
+            height: 429px;
+            width: 100%;
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+
+    .service_column {
+        width: 90%;
+        justify-content: center;
+    }
+
+    .border-content {
+        position: relative;
+
+
+        &::after {
+            left: 2%;
+        }
+
+        &::before {
+            right: 2%;
+        }
+    }
+
+    .our_services .blue-section-title {
+        width: 80% !important;
+    }
+
+}
+
+
+@media screen and (max-width: 1600px) {
+    .w-70 {
+        width: 85%;
+    }
+
+    .w-60 {
+        width: 75%
+    }
+
+    .blue-section-title {
+        width: 90%;
+
+    }
+
+    .blue-list {
+        width: 90% !important;
+
+    }
+
+    .blue-list .position-left-50 {
+        left: 0 !important;
+    }
+}
+
+@media screen and (max-width: 1400px){
+    .border-content {
+        &::after {
+           content: "";
+        }
+
+        &::before {
+            content: "";
+        }
+    }
+}
+
+
+@media screen and (max-width: 1300px) {
+    .w-70 {
+        width: 90%;
+    }
+
+    .w-60 {
+        width: 85%;
+    }
+
+    .blue-list {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .column-1200 {
+        flex-direction: column;
+    }
+
+    .center-1200 {
+        .wp-block-column {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 0 auto !important;
+        }
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+    .w-60 {
+        width: 90%;
+    }
+
+    .service_column {
+        flex-direction: column-reverse;
+        gap: 0 !important;
+        margin: 0 auto !important;
+
+        .storm-restoration {
+            left: 0;
+        }
+
+        .border-radius-100 {
+            position: relative;
+            bottom: 5px;
+            display: flex;
+            flex-direction: column;
+            height: fit-content !important;
+
+            p {
+                width: 100%;
+                text-align: center !important;
+                padding-bottom: 40px;
+            }
+        }
+
+
+        figure {
+            img {
+                width: 100%;
+            }
+        }
+
+        .max-w-400 {
+            max-width: 100%;
+            width: 100%;
+            flex-basis: 100% !important;
+        }
+
+        .max-w-350 {
+            font-size: 20px !important;
+            padding: 10px;
+            max-width: 90%;
+            width: 90%;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+
+    }
+
+    .column-reverse-900 {
+        display: flex;
+        flex-direction: column-reverse !important;
+    }
+
+}
+
+
+@media screen and (max-width: 800px) {
+    .blue-list {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .blue-section-title {
+        padding: 20px;
+        line-height: 1;
+    }
+}
