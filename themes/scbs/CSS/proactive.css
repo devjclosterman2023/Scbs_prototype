@@ -1,0 +1,29 @@
+.w-409 {
+    max-width: 409px;
+    padding-top: 180px;  
+    margin-left: 50px !important; 
+}
+
+.margin-right {
+    margin-right: 50px !important;
+}
+
+.push_graphic_down::before {
+      top: 7% !important;
+}
+
+.push_graphic_down::after {
+      top: 7% !important;
+}
+
+.w-400 {
+    max-width: 400px;
+}
+
+.move_graphic_up::after {
+    top: -14%;
+}
+
+.move_graphic_up::before {
+    top: -14%;
+}

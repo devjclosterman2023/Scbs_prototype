@@ -175,6 +175,11 @@ function enqueue_custom_stylesheets() {
     wp_enqueue_style( 'loss-mitigation', get_template_directory_uri() . '/CSS/loss-mitigation.css');
     wp_enqueue_style( 'insurance', get_template_directory_uri() . '/CSS/insurance.css');
     wp_enqueue_style( 'proactive', get_template_directory_uri() . '/CSS/proactive.css');
+    wp_enqueue_style( 'header', get_template_directory_uri() . '/CSS/header.css');
+    wp_enqueue_style( 'footer', get_template_directory_uri() . '/CSS/footer.css');
+    wp_enqueue_style( 'hoa', get_template_directory_uri() . '/CSS/HOA.css');
+    wp_enqueue_style( 'multifamily', get_template_directory_uri() . '/CSS/multifamily.css');
+    wp_enqueue_style( 'commercial', get_template_directory_uri() . '/CSS/commercial.css');
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_stylesheets');

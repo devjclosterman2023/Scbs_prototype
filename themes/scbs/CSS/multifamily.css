@@ -1,0 +1,31 @@
+.w-770 {
+    max-width: 770px !important;
+    width: 100%;
+    margin-left: -30px;
+}
+
+.w-556 {
+    max-width: 556px;
+    margin-left: -30px;
+}
+.w-80 {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1920px !important;
+  padding-top: 75px;
+}
+
+.margin {
+    margin-left: -30px;
+}
+
+/* .double_graphic::before {
+    /* height: 100%; */
+    /* background-repeat: repeat-y; */
+/* } */
+
+/* .double_graphic::after {
+    height: 100%; 
+    background-repeat: repeat-y;
+} */
+

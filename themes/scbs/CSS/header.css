@@ -1,0 +1,11 @@
+#menu-item-26 .sub-menu {
+    background-color: #f7f5f4;
+    padding-left: 100px;
+   
+}
+
+#menu-item-26 .sub-menu li a {
+    color: #0e4f9d !important;
+    background-color: #f7f5f4; 
+    height: 50%;
+}
