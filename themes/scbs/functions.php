@@ -170,3 +170,11 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+function enqueue_custom_stylesheets() {
+    wp_enqueue_style( 'services', get_template_directory_uri() . '/CSS/services.css');
+    wp_enqueue_style( 'loss-mitigation', get_template_directory_uri() . '/CSS/loss-mitigation.css');
+    wp_enqueue_style( 'insurance', get_template_directory_uri() . '/CSS/insurance.css');
+    wp_enqueue_style( 'proactive', get_template_directory_uri() . '/CSS/proactive.css');
+}
+
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_stylesheets');
