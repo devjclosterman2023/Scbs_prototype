@@ -1,0 +1,17 @@
+/* .border-content {
+    position: relative;
+  }
+
+.border-content::after {
+    position: absolute;
+    content: url("http://scbs.web-mo.com/wp-content/uploads/2023/05/left-tabs.svg");
+    top: 0;
+    left: 5%;
+  }
+.border-content::before {
+    position: absolute;
+    content: url("http://scbs.web-mo.com/wp-content/uploads/2023/05/right-tabs.svg");
+    top: 0;
+    right: 5%;
+  } */
+
