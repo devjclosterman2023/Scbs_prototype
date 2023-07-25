@@ -50,7 +50,7 @@ class Plugin_Support {
                             <p>Also you can find most common answers and solutions for most common questions and issues in next tabs.</p>
                             <div class="grw-alert grw-alert-success">
                                 <strong>Try more features in the Business version</strong>: Merge Google, Facebook and Yelp reviews, Beautiful themes (Slider, Grid, Trust Badges), Shortcode support, Rich Snippets, Rating filter, Any sorting, Include/Exclude words filter, Hide/Show any elements, Priority support and many others.
-                                <a class="button-primary button" href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank" style="margin-left:10px">Upgrade to Business</a>
+                                <a class="button-primary button" href="https://richplugins.com/business-reviews-bundle-wordpress-plugin?promo=GRGROW23" target="_blank" style="margin-left:10px">Upgrade to Business</a>
                             </div>
                             <br>
                             <div class="grw-socials">

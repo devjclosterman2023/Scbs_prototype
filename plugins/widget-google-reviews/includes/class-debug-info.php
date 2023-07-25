@@ -6,6 +6,9 @@ use WP_Rplg_Google_Reviews\Includes\Core\Database;
 
 class Debug_Info {
 
+    private $activator;
+    private $feed_deserializer;
+
     public function __construct(Activator $activator, Feed_Deserializer $feed_deserializer) {
         $this->activator = $activator;
         $this->feed_deserializer = $feed_deserializer;

@@ -33,6 +33,13 @@ class Plugin_Overview {
         <div class="grw-overview-workspace">
 
             <div class="grw-overview-places">
+                <select id="grw-overview-months">
+                    <option value="6" selected>6 months</option>
+                    <option value="12">a year</option>
+                    <option value="24">2 years</option>
+                    <option value="36">3 years</option>
+                    <option value="60">5 years</option>
+                </select>
                 <select id="grw-overview-places"></select>
             </div>
 
@@ -56,6 +63,12 @@ class Plugin_Overview {
                                 <div class="grw-card-header">Rating</div>
                                 <div class="grw-card-body grw-card-fh">
                                     <div id="grw-overview-rating"><img src="<?php echo GRW_ASSETS_URL; ?>img/dots-spinner.svg"></div>
+                                </div>
+                            </div><br>
+                            <div class="grw-card">
+                                <div class="grw-card-header">Usage Stats</div>
+                                <div class="grw-card-body grw-card-fh">
+                                    <div id="grw-overview-stats"><img src="<?php echo GRW_ASSETS_URL; ?>img/dots-spinner.svg"></div>
                                 </div>
                             </div>
                         </div>

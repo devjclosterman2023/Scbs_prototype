@@ -4,6 +4,8 @@ namespace WP_Rplg_Google_Reviews\Includes\Admin;
 
 class Admin_Notice {
 
+    private $notice_id;
+
     private static $plugin_notices = array(
         'settings_active_0'      => 'Plugin disabled successfully.',
         'settings_active_1'      => 'Plugin enabled successfully.',

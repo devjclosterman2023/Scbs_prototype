@@ -6,6 +6,8 @@ use WP_Rplg_Google_Reviews\Includes\Core\Core;
 
 class Plugin_Overview_Ajax {
 
+    private $core;
+
     public function __construct(Core $core) {
         $this->core = $core;
 

@@ -4,6 +4,12 @@ namespace WP_Rplg_Google_Reviews\Includes\Admin;
 
 class Admin_Page {
 
+    private $parent_slug;
+    private $page_title;
+    private $menu_title;
+    private $capability;
+    private $menu_slug;
+
     public function __construct($parent_slug, $page_title, $menu_title, $capability, $menu_slug) {
         $this->parent_slug = $parent_slug;
         $this->page_title  = $page_title;

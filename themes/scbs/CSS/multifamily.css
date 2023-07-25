@@ -1,5 +1,5 @@
 .w-770 {
-    max-width: 770px !important;
+    max-width: 700px !important;
     width: 100%;
     margin-left: -30px;
 }
@@ -19,13 +19,55 @@
     margin-left: -30px;
 }
 
-/* .double_graphic::before {
-    /* height: 100%; */
-    /* background-repeat: repeat-y; */
-/* } */
+.border-content-2 {
+    position: relative;
+  }
 
-/* .double_graphic::after {
-    height: 100%; 
-    background-repeat: repeat-y;
-} */
+  .border-content-2::after {
+    position: absolute;
+    content: url("http://scbs.local/wp-content/uploads/2023/07/Group-197.svg");
+    top: 0;
+    left: 5%;
+  }
+  .border-content-2::before {
+    position: absolute;
+    content: url("http://scbs.local/wp-content/uploads/2023/07/Group-196.svg");
+    top: 0;
+    right: 5%;
+  }
 
+  .border-content-l {
+    position: relative;
+  }
+
+  .border-content-l::after {
+    position: absolute;
+    content: url("http://scbs.local/wp-content/uploads/2023/07/Group-165.svg");
+    top: -2%;
+    left: 4%;
+  }
+  .border-content-l::before {
+    position: absolute;
+    content: url("http://scbs.local/wp-content/uploads/2023/07/Group-164.svg");
+    top: -2%;
+    right: 4%;
+  }
+
+  .max-w-300 {
+    max-width: 300px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .border-content-2::after {
+        display: none;
+    }
+    .border-content-2::before {
+        display: none;
+    }
+    .border-content-l::after {
+        display: none;
+    }
+    .border-content-l::before {
+        display: none;
+    }
+   }

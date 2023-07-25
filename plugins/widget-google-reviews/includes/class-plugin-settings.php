@@ -4,6 +4,8 @@ namespace WP_Rplg_Google_Reviews\Includes;
 
 class Plugin_Settings {
 
+    private $debug_info;
+
     public function __construct(Debug_Info $debug_info) {
         $this->debug_info = $debug_info;
     }

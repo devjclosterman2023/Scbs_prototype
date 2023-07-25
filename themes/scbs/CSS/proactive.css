@@ -27,3 +27,18 @@
 .move_graphic_up::before {
     top: -14%;
 }
+
+.left-hand-blue-column {
+  padding-left: 100px;
+}
+
+.right-hand-pink-column {
+    padding-right: 100px;
+}
+
+#wpforms-submit-377 {
+    width: 335px;
+    height: 65px;
+    background-color: #cd611c;
+    border-radius: 15px;
+}

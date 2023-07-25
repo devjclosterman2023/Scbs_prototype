@@ -6,6 +6,12 @@ use WP_Rplg_Google_Reviews\Includes\Core\Core;
 
 class Feed_Shortcode {
 
+    private $core;
+    private $view;
+    private $assets;
+    private $feed_old;
+    private $feed_deserializer;
+
     public function __construct(Feed_Deserializer $feed_deserializer, Assets $assets, Core $core, View $view, Feed_Old $feed_old) {
         $this->feed_deserializer = $feed_deserializer;
         $this->assets            = $assets;

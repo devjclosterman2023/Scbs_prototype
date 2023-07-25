@@ -6,6 +6,11 @@ use WP_Rplg_Google_Reviews\Includes\Core\Core;
 
 class Feed_Serializer_Ajax {
 
+    private $core;
+    private $view;
+    private $feed_serializer;
+    private $feed_deserializer;
+
     public function __construct(Feed_Serializer $feed_serializer, Feed_Deserializer $feed_deserializer, Core $core, View $view) {
         $this->feed_serializer = $feed_serializer;
         $this->feed_deserializer = $feed_deserializer;

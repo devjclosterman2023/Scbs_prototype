@@ -55,7 +55,7 @@ class Admin_Rev {
                           '</p>' .
                           '<p style="color:#999;font-size:12px;">' .
                               'By the way, if you have been thinking about upgrading to the ' .
-                              '<a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">Business</a> ' .
+                              '<a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin?promo=GRGROW23" target="_blank">Business</a> ' .
                               'version, here is a 30% off onboard coupon ->  <b>GRGROW23</b>' .
                           '</p>';
 

@@ -7,6 +7,10 @@ use WP_Rplg_Google_Reviews\Includes\Core\Database;
 
 class Builder_Page {
 
+    private $view;
+    private $core;
+    private $feed_deserializer;
+
     public function __construct(Feed_Deserializer $feed_deserializer, Core $core, View $view) {
         $this->feed_deserializer = $feed_deserializer;
         $this->core = $core;

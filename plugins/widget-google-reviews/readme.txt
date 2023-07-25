@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: google reviews, google, reviews, rating, widget, ratings, reviews plugin, google business, testimonial, testimonials, google places reviews, map reviews, google my business
 Requires at least: 2.8
 Tested up to: 6.2
-Stable tag: 2.5
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,15 +99,34 @@ To find out more about who we are and what we do, here are some useful links:
 
 == Roadmap ==
 
-= 2.5.2 =
+= 2.7 =
 * Add block
 
-= 2.5.1 =
+= 2.6.5 =
 * Grid layout
 * Stop slider autoplay by mouse hover
 * Test-feature: weekly reviews auto-updates
 
 == Changelog ==
+
+= 2.6.1 =
+* Bugfix: JavaScript errors on Overview page (incorrect stats time)
+
+= 2.6 =
+* Improve: slider auto-play option
+* Bugfix: PHP 8.2 support
+* Bugfix: encrypted Google API key saved
+* Bugfix: correct calculation for overview usage stats
+* Links fixed
+
+= 2.5.1 =
+* Improve: test mode for auto refresh reviews schedule
+* Improve: auto enable reviews update schedule if Google API key saved
+* Improve: Google connection handler redone to ajax
+* Improve: overview page has usage stats
+* Improve: overview page has a monthly period for stats graph
+* Added promo coupon for the business version link
+* Some CSS fixes
 
 = 2.5 =
 * Improve: autosave reviews feed by timeout

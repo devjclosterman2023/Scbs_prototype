@@ -18,6 +18,7 @@ class Core {
             'hide_reviews'              => false,
             'hide_avatar'               => false,
 
+            'slider_autoplay'           => true,
             'slider_hide_border'        => false,
             'slider_hide_prevnext'      => false,
             'slider_hide_dots'          => false,
@@ -282,7 +283,9 @@ class Core {
                      " ORDER BY id DESC";
 
         $places = $place_id > 0 ?
+                  // Query for specific Google place
                   $wpdb->get_results($wpdb->prepare($place_sql, sanitize_text_field(wp_unslash($place_id)))) :
+                  // Query for summary (all places)
                   $wpdb->get_results($place_sql);
 
         $count = count($places);
@@ -308,7 +311,7 @@ class Core {
         if ($count > 1) {
             $rating = round($rating / $count, 1);
             $rating = number_format((float)$rating, 1, '.', '');
-            array_unshift($google_places, json_decode(json_encode(array('id' => 0, 'name' => 'Summary by all places'))));
+            array_unshift($google_places, json_decode(json_encode(array('id' => 0, 'name' => 'Summary for all places'))));
         }
 
         // -------------- Get Google reviews --------------
@@ -348,13 +351,27 @@ class Core {
             )
         );
 
+        // -------------- Get min/max stats values --------------
+        $stats_minmax = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT t1.* FROM " . $wpdb->prefix . Database::STATS_TABLE . " t1" .
+                " JOIN (" .
+                    "SELECT min(time) AS min_value, max(time) AS max_value, google_place_id FROM " . $wpdb->prefix . Database::STATS_TABLE .
+                    " WHERE google_place_id IN (" . implode(', ', array_fill(0, count($google_place_ids), '%d')) . ")" .
+                    " GROUP BY google_place_id" .
+                ") AS t2 ON t1.google_place_id = t2.google_place_id AND (t1.time = t2.min_value OR t1.time = t2.max_value)",
+                $google_place_ids
+            )
+        );
+
         return
             array(
                 'rating'       => $rating,
                 'review_count' => $review_count,
                 'places'       => $google_places,
                 'reviews'      => $google_reviews,
-                'stats'        => $stats
+                'stats'        => $stats,
+                'stats_minmax' => $stats_minmax
             );
     }
 

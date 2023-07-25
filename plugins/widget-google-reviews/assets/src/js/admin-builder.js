@@ -234,6 +234,12 @@ var GRW_HTML_CONTENT = '' +
             '</div>' +
             '<div class="grw-builder-option">' +
                 '<label>' +
+                    '<input type="checkbox" name="slider_autoplay" value="" checked>' +
+                    'Auto-play' +
+                '</label>' +
+            '</div>' +
+            '<div class="grw-builder-option">' +
+                '<label>' +
                     '<input type="checkbox" name="slider_hide_border" value="">' +
                     'Hide background' +
                 '</label>' +
@@ -474,10 +480,14 @@ function grw_feed_save() {
 }
 
 function grw_review_hide($this) {
-    jQuery.post(GRW_VARS.handlerUrl + '&cf_action=grw_hide_review', {
+
+    jQuery.post(ajaxurl, {
+
         id          : $this.attr('data-id'),
         feed_id     : jQuery('input[name="grw_feed[post_id]"]').val(),
-        grw_wpnonce : jQuery('#grw_nonce').val()
+        grw_wpnonce : jQuery('#grw_nonce').val(),
+        action      : 'grw_hide_review'
+
     }, function(res) {
         var parent = $this.parent().parent();
         if (res.hide) {
@@ -520,16 +530,18 @@ function grw_connection($, el, platform, authcode) {
 function grw_connect_ajax($, el, params, authcode, attempt) {
 
     var platform = params.platform,
-        connect_btn = el.querySelector('.grw-connect-btn'),
-        url = GRW_VARS.handlerUrl + '&cf_action=grw_connect_' + platform + '&v=' + new Date().getTime();
+        connect_btn = el.querySelector('.grw-connect-btn');
 
-    $.post(url, {
+    $.post(ajaxurl, {
+
         id          : decodeURIComponent(params.id),
         lang        : params.lang,
         local_img   : params.local_img,
         feed_id     : $('input[name="grw_feed[post_id]"]').val(),
-        //key: key,
-        grw_wpnonce : $('#grw_nonce').val()
+        grw_wpnonce : $('#grw_nonce').val(),
+        action      : 'grw_connect_google',
+        v           : new Date().getTime()
+
     }, function(res) {
 
         console.log('grw_connect_debug:', res);
@@ -746,7 +758,7 @@ function grw_connection_render(conn, checked) {
                 '</label>' +
                 '<span class="grw-quest grw-quest-top grw-toggle" title="Click to help">?</span>' +
                 '<div class="grw-quest-help">' +
-                    (conn.platform == 'google' ? 'The plugin uses the Google Places API to get your reviews. <b>The API only returns the 5 most helpful reviews (it\'s a limitation of Google, not the plugin)</b>. This option calls the Places API once in 24 hours (to keep the plugin\'s free and avoid a Google Billing) to check for a new reviews and if there are, adds to the plugin. Thus slowly building up a database of reviews.<br><br>Also if you see the new reviews on Google map, but after some time it\'s not added to the plugin, it means that Google does not include these reviews to the API and the plugin can\'t get this.<br><br>If you need to show <b>all reviews</b>, please use <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">the Business plugin</a> which uses a Google My Business API without API key and billing.' : '') +
+                    (conn.platform == 'google' ? 'The plugin uses the Google Places API to get your reviews. <b>The API only returns the 5 most helpful reviews (it\'s a limitation of Google, not the plugin)</b>. This option calls the Places API once in 24 hours (to keep the plugin\'s free and avoid a Google Billing) to check for a new reviews and if there are, adds to the plugin. Thus slowly building up a database of reviews.<br><br>Also if you see the new reviews on Google map, but after some time it\'s not added to the plugin, it means that Google does not include these reviews to the API and the plugin can\'t get this.<br><br>If you need to show <b>all reviews</b>, please use <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin?promo=GRGROW23" target="_blank">Business plugin</a> which uses a Google My Business API without API key and billing.' : '') +
                     (conn.platform == 'yelp' ? 'The plugin uses the Yelp API to get your reviews. <b>The API only returns the 3 most helpful reviews without sorting possibility.</b> When Yelp changes the 3 most helpful the plugin will automatically add the new one to your database. Thus slowly building up a database of reviews.' : '') +
                 '</div>' +
             '</div>'
