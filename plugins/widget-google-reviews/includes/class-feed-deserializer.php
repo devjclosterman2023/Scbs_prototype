@@ -4,6 +4,8 @@ namespace WP_Rplg_Google_Reviews\Includes;
 
 class Feed_Deserializer {
 
+    private $wp_query;
+
     public function __construct(\WP_Query $wp_query) {
         $this->wp_query = $wp_query;
     }

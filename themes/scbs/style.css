@@ -854,6 +854,24 @@ body {
   .border-content::before {
     right: 2%;
   }
+  .border-content-2 {
+    position: relative;
+  }
+  .border-content-2::after {
+    left: 2%;
+  }
+  .border-content-2::before {
+    right: 2%;
+  }
+  .border-content-l {
+    position: relative;
+  }
+  .border-content-l::after {
+    left: 2%;
+  }
+  .border-content-l::before {
+    right: 2%;
+  }
   .our_services .blue-section-title {
     width: 80% !important;
   }
@@ -882,7 +900,24 @@ body {
   .border-content::before {
     content: "";
   }
+ .border-content-2::after {
+    content: "";
+  }
+  .border-content-2::before {
+    content: "";
+  }
+	 .border-content-l::after {
+    content: "";
+  }
+  .border-content-l::before {
+    content: "";
+  }
+	
+	
+	
+	
 }
+
 @media screen and (max-width: 1300px) {
   .w-70 {
     width: 90%;

@@ -6,6 +6,9 @@ use WP_Rplg_Google_Reviews\Includes\Core\Connect_Google;
 
 class Reviews_Cron {
 
+    private $connect_google;
+    private $feed_deserializer;
+
     public function __construct(Connect_Google $connect_google, Feed_Deserializer $feed_deserializer) {
         $this->connect_google = $connect_google;
         $this->feed_deserializer = $feed_deserializer;
@@ -14,21 +17,14 @@ class Reviews_Cron {
     public function register() {
         add_action('grw_revupd_schedule', array($this, 'update_schedule'));
 
-        $api_key = get_option('grw_google_api_key');
-        $revupd_opt = get_option('grw_revupd_cron');
-        $next_scheduled = wp_next_scheduled('grw_revupd_schedule');
+        $revupd_cron = get_option('grw_revupd_cron');
+        $next_cron_run = wp_next_scheduled('grw_revupd_schedule');
 
-        if ($api_key && $revupd_opt !== '0' && !$next_scheduled) {
-
-            // initial value if API key is added
-            if ($revupd_opt == false) {
-                update_option('grw_revupd_cron', '1');
-            }
-
+        if ($revupd_cron !== '0' && !$next_cron_run) {
             $start_at = rand(0, 60 * 60 * 12);
             wp_schedule_event($start_at, 'daily', 'grw_revupd_schedule');
-        } else {
-            update_option('grw_revupd_cron_timeout', $next_scheduled - time());
+        } elseif ($next_cron_run) {
+            update_option('grw_revupd_cron_timeout', $next_cron_run - time());
         }
     }
 
@@ -106,6 +102,7 @@ class Reviews_Cron {
         $next_scheduled = wp_next_scheduled('grw_revupd_schedule');
         if ($next_scheduled) {
             wp_unschedule_event($next_scheduled, 'grw_revupd_schedule');
+            update_option('grw_revupd_cron_timeout', '');
         }
     }
 }

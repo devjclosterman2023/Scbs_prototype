@@ -123,7 +123,7 @@ function _grw_init_slider(el) {
         if (isVisible(SLIDER_ELEM)) {
             setTimeout(resize, 1);
             _rplg_init_blazy(10);
-            if (REVIEW_ELEMS.length) {
+            if (REVIEW_ELEMS.length && SLIDER_OPTS.autoplay) {
                 setTimeout(swipe, SLIDER_SPEED);
             }
         } else {

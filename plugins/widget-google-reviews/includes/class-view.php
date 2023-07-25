@@ -58,7 +58,8 @@ class View {
         <div class="grw-slider<?php if ($options->dark_theme) { ?> wp-dark<?php } ?>" data-options='<?php
             echo json_encode(
                 array(
-                    'speed' => $options->slider_speed ? $options->slider_speed : 5
+                    'speed'    => $options->slider_speed ? $options->slider_speed : 5,
+                    'autoplay' => $options->slider_autoplay
                 )
             ); ?>'>
             <div class="grw-row grw-row-m">

@@ -6,6 +6,8 @@ use WP_Rplg_Google_Reviews\Includes\Core\Database;
 
 class Activator {
 
+    private $database;
+
     public function __construct(Database $database) {
         $this->database = $database;
     }
@@ -73,9 +75,11 @@ class Activator {
             $this->first_install();
             update_option('grw_version', $current_version);
             update_option('grw_auth_code', $this->random_str(127));
+            update_option('grw_revupd_cron', '1');
         } elseif ($last_active_version !== $current_version) {
             $this->exist_install($current_version, $last_active_version);
             update_option('grw_version', $current_version);
+            update_option('grw_revupd_cron', '1');
         }
     }
 

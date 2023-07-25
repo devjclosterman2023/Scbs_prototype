@@ -434,6 +434,54 @@
     right: 0;
 }
 
+#grw-overview-rating {
+    font-size: 15px;
+}
+
+#grw-overview-rating .wp-star svg {
+    vertical-align: middle;
+}
+
+.grw-overview-h {
+    margin: 0 0 6px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#grw-overview-stats > div {
+    line-height: 32px;
+}
+
+.grw-stat-val {
+    float: right;
+    color: #29af4c;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.grw-stat-val.grw-stat-up {
+    color: #29af4c;
+}
+
+.grw-stat-val.grw-stat-down {
+    color: #e94135;
+}
+
+.grw-stat-val:after {
+    position: absolute;
+    right: 6px;
+    font-size: 16px
+}
+
+.grw-stat-val.grw-stat-up:after {
+    content: '⇧';
+}
+
+.grw-stat-val.grw-stat-down:after {
+    content: '⇩';
+}
+
 .grw-card {
     margin: 0;
     padding: 0;
@@ -799,6 +847,14 @@
     background: #eee;
 }
 
+.grw-builder-connect:hover {
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 3px 5px rgba(0, 0, 0, .24);
+}
+
+.grw-builder-connect:active {
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 0px 1px rgba(0, 0, 0, .24);
+}
+
 .grw-builder-connect.grw-connect-google {
     font-weight: 600;
     font-size: 12px;
@@ -867,6 +923,14 @@
     margin: 10px 0 0;
     border: 1px solid #ccc;
     background: #fafafa url(../img/button-down-black.svg) no-repeat right;
+}
+
+.grw-connect-business:hover {
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 3px 5px rgba(0, 0, 0, .24);
+}
+
+.grw-connect-business:active {
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 0px 1px rgba(0, 0, 0, .24);
 }
 
 .grw-connect-business + div {

@@ -4,6 +4,8 @@ namespace WP_Rplg_Google_Reviews\Includes;
 
 class Feed_Page {
 
+    private $feed_deserializer;
+
     public function __construct(Feed_Deserializer $feed_deserializer) {
         $this->feed_deserializer = $feed_deserializer;
     }

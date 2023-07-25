@@ -4,6 +4,9 @@ namespace WP_Rplg_Google_Reviews\Includes;
 
 class Settings_Save {
 
+    private $activator;
+    private $reviews_cron;
+
     public function __construct(Activator $activator, Reviews_Cron $reviews_cron) {
         $this->activator = $activator;
         $this->reviews_cron = $reviews_cron;
@@ -42,9 +45,16 @@ class Settings_Save {
 
         if (isset($_POST['save'])) {
             $fields = array('grw_demand_assets', 'grw_minified_assets', 'grw_google_api_key');
-            foreach ($fields as $key => $value) {
-                if (isset($_POST[$value])) {
-                    update_option($value, trim(sanitize_text_field(wp_unslash($_POST[$value]))));
+            foreach ($fields as $field) {
+
+                if (isset($_POST[$field])) {
+                    $value = $_POST[$field];
+                    update_option($field, trim(sanitize_text_field(wp_unslash($value))));
+
+                    // If save Google API key automatically enable a reviews update cron
+                    if ($field == 'grw_google_api_key' && strlen($value) > 0) {
+                        update_option('grw_revupd_cron', '1');
+                    }
                 }
             }
             $notice_code = 'settings_save';
@@ -61,6 +71,7 @@ class Settings_Save {
             $this->activator->delete_all_options($install_multisite);
             $this->activator->delete_all_feeds($install_multisite);
             $this->activator->activate();
+            $this->reviews_cron->deactivate();
             $notice_code = 'settings_install';
         }
 
@@ -69,6 +80,7 @@ class Settings_Save {
             $this->activator->drop_db($reset_all_multisite);
             $this->activator->delete_all_options($reset_all_multisite);
             $this->activator->delete_all_feeds($reset_all_multisite);
+            $this->reviews_cron->deactivate();
             $notice_code = 'settings_reset_all';
         }
 
@@ -87,22 +99,22 @@ class Settings_Save {
         }
 
         if (isset($_POST['revupd_cron'])) {
-            $api_key = get_option('grw_google_api_key');
+            $revupd_cron = $_POST['revupd_cron'] == 'Enable' ? '1' : '0';
+            if ($revupd_cron == '0') {
+                $this->reviews_cron->deactivate();
+            }
+            update_option('grw_revupd_cron', $revupd_cron);
+            $notice_code = 'settings_revupd_cron_' . $revupd_cron;
+
+            /*$api_key = get_option('grw_google_api_key');
             if ($api_key) {
-
-                $revupd_cron = $_POST['revupd_cron'] == 'Enable' ? '1' : '0';
                 update_option('grw_revupd_cron', $revupd_cron);
-
-                if ($revupd_cron == '0') {
-                    $this->reviews_cron->deactivate();
-                }
                 $notice_code = 'settings_revupd_cron_' . $revupd_cron;
-
             } else {
                 update_option('grw_notice_type', 'error');
                 update_option('grw_notice_msg', 'To make the reviews automatically updated, please create your own Google API key. The extrimly detailed instruction how to do it, you can <a href="' . admin_url('admin.php?page=grw-support&grw_tab=fig#fig_api_key') . '" target="_blank">find here</a>.');
                 $notice_code = 'custom_msg';
-            }
+            }*/
         }
 
         $this->redirect_to_tab($notice_code);

@@ -86,7 +86,9 @@ jQuery(document).ready(function($) {
     var $overviewRating = $('#grw-overview-rating');
     if ($overviewRating.length) {
 
-        var $places  = $('#grw-overview-places'),
+        var MONTHS = 6,
+            $places  = $('#grw-overview-places'),
+            $months  = $('#grw-overview-months'),
             $rating  = $('#grw-overview-rating'),
             $reviews = $('#grw-overview-reviews'),
             chart    = null;
@@ -95,6 +97,11 @@ jQuery(document).ready(function($) {
 
         $places.change(function() {
             ajax(this.value);
+        });
+
+        $months.change(function() {
+            MONTHS = this.value;
+            ajax($places.val());
         });
 
         ajax(0, function(res) {
@@ -130,23 +137,95 @@ jQuery(document).ready(function($) {
                     var place = res.places.length > 1 ? res.places.find(x => x.id == pid) : res.places[0];
 
                     /*
+                     * Stats minmax grouping and calculate result
+                     */
+                    var stats_result = null;
+
+                    if (res.stats_minmax.length) {
+
+                        let minmax = {},
+                            mintime = 0,
+                            nowtime = new Date().getTime() / 1000;
+
+                        for (let i = 0; i < res.stats_minmax.length; i++) {
+
+                            let mm = res.stats_minmax[i],
+                                gpid = mm.google_place_id;
+
+                            mintime = !mintime || mm.time < mintime ? mm.time : mintime;
+
+                            if (minmax[gpid]) {
+
+                                minmax[gpid] = {
+                                    time         : nowtime - minmax[gpid].time,
+                                    rating       : mm.rating - minmax[gpid].rating,
+                                    review_count : mm.review_count - minmax[gpid].review_count
+                                };
+
+                                if (stats_result) {
+                                    stats_result = {
+                                        time         : minmax[gpid].time,
+                                        rating       : stats_result.rating + minmax[gpid].rating,
+                                        review_count : stats_result.review_count + minmax[gpid].review_count
+                                    }
+                                } else {
+                                    stats_result = minmax[gpid];
+                                }
+
+                                delete minmax[gpid];
+
+                            } else {
+                                minmax[gpid] = {
+                                    time         : mintime,
+                                    rating       : mm.rating,
+                                    review_count : mm.review_count
+                                };
+                            }
+
+                        }
+                    }
+
+                    let $stats = $('#grw-overview-stats');
+                    $stats.html('Not calculated yet');
+
+                    if (stats_result) {
+                        let sr = stats_result.rating,
+                            src = stats_result.review_count;
+                        $stats.html(
+                            '<div class="grw-overview-h">While using the plugin</div>' +
+                            '<div>' +
+                                'Usage time: ' +
+                                '<span class="grw-stat-val grw-stat-up">' + grw_s2dmy(stats_result.time) + '</span>' +
+                            '</div>' +
+                            '<div>' +
+                                'Rating up: ' +
+                                '<span class="grw-stat-val grw-stat-' + (sr < 0 ? 'down' : (sr > 0 ? 'up' : '')) + '">' + sr + '</span>' +
+                            '</div>' +
+                            '<div>' +
+                                'Reviews up: ' +
+                                '<span class="grw-stat-val grw-stat-' + (src < 0 ? 'down' : (src > 0 ? 'up' : '')) + '">' + src + '</span>' +
+                            '</div>'
+                        );
+                    }
+
+                    /*
                      * Render rating
                      */
                     $rating.html(
-                        '<div class="wp-gr wpac">' +
-                            '<div style=" margin:0 0 6px!important;font-size:15px!important">' + place.name + '</div>' +
+                        '<div class="wp-gr">' +
+                            '<div class="grw-overview-h">' + place.name + '</div>' +
                             '<div>' +
                                 '<span class="wp-google-rating">' + res.rating + '</span>' +
                                 '<span class="wp-google-stars">' + grw_stars(res.rating, '#fb8e28', 20) + '</span>' +
                             '</div>' +
                             '<div class="wp-google-powered">Based on ' + res.review_count + ' reviews</div>' +
+
+                            (place.updated ?
                             '<div class="wp-google-powered">Last updated: ' +
-                                (
-                                    place.updated ?
-                                    '<span class="wp-google-time" data-time="' + parseInt(parseInt(place.updated) / 1000) + '"></span>'
-                                    : ''
-                                ) +
-                            '</div>' +
+                                '<span class="wp-google-time">' +
+                                    WPacTime.getTime(parseInt(place.updated), _rplg_lang(), 'ago') +
+                                '</span>' +
+                            '</div>' : '') +
                         '</div>'
                     );
 
@@ -190,7 +269,7 @@ jQuery(document).ready(function($) {
 
                     // 2) Calculate how many months needs
                     var period = parseInt((res.stats[0].time - res.stats[res.stats.length - 1].time) / (60 * 60 * 24 * 30)),
-                        months = period > 4 ? 6 : (period || 1);
+                        months = period > 4 ? MONTHS : (period || 1);
 
                     // 2) Calculate stats by months (last six)
                     var ms = {},
@@ -412,4 +491,15 @@ function grw_trimtext(text, size) {
     } else {
         return text;
     }
+}
+
+function grw_s2dmy(s) {
+    let d = (s / (60 * 60 * 24)).toFixed(0);
+    if (d > 30) {
+        if (d > 365) {
+            return Math.round(d / 365) + ' years';
+        }
+        return Math.round(d / 30) + ' months';
+    }
+    return d + ' days';
 }

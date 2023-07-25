@@ -5,149 +5,160 @@ namespace WP_Rplg_Google_Reviews\Includes\Core;
 class Connect_Google {
 
     public function __construct() {
-        add_action('init', array($this, 'request_handler'));
+        add_action('wp_ajax_grw_hide_review', array($this, 'hide_review'));
+        add_action('wp_ajax_grw_connect_google', array($this, 'connect_google'));
     }
 
-    public function request_handler() {
+    public function hide_review() {
         global $wpdb;
 
-        if (!empty($_GET['cf_action'])) {
+        if (current_user_can('manage_options')) {
+            if (isset($_POST['grw_wpnonce']) === false) {
+                $error = __('Unable to call request. Make sure you are accessing this page from the Wordpress dashboard.', 'widget-google-reviews');
+                $response = compact('error');
+            } else {
+                check_admin_referer('grw_wpnonce', 'grw_wpnonce');
 
-            switch ($_GET['cf_action']) {
+                $review = $wpdb->get_row(
+                    $wpdb->prepare(
+                        "SELECT * FROM " . $wpdb->prefix . Database::REVIEW_TABLE .
+                        " WHERE id = %d", $_POST['id']
+                    )
+                );
 
-                case 'grw_connect_google':
-                    if (current_user_can('manage_options')) {
-                        if (isset($_POST['grw_wpnonce']) === false) {
-                            $error = __('Unable to call request. Make sure you are accessing this page from the Wordpress dashboard.', 'widget-google-reviews');
-                            $response = compact('error');
-                        } else {
-                            check_admin_referer('grw_wpnonce', 'grw_wpnonce');
+                $hide = $review->hide == '' ? 'y' : '';
+                $wpdb->update($wpdb->prefix . Database::REVIEW_TABLE, array('hide' => $hide), array('id' => $_POST['id']));
 
-                            if (isset($_POST['key'])) {
-                                $key = sanitize_text_field(wp_unslash($_POST['key']));
-                                if (strlen($key) > 0) {
-                                    update_option('grw_google_api_key', $key);
-                                }
-                            }
-                            $google_api_key = get_option('grw_google_api_key');
-
-                            $id = sanitize_text_field(wp_unslash($_POST['id']));
-                            $lang = sanitize_text_field(wp_unslash($_POST['lang']));
-                            $local_img = sanitize_text_field(wp_unslash($_POST['local_img']));
-
-                            if ($google_api_key && strlen($google_api_key) > 0) {
-                                $url = $this->api_url($id, $google_api_key, $lang);
-                            } else {
-                                $url = 'https://app.richplugins.com/gpaw/get/json' .
-                                       '?siteurl=' . get_option('siteurl') .
-                                       '&authcode=' . get_option('grw_auth_code') .
-                                       '&pid=' . $id;
-                                if ($lang && strlen($lang) > 0) {
-                                    $url = $url . '&lang=' . $lang;
-                                }
-                            }
-
-                            $res = wp_remote_get($url);
-                            $body = wp_remote_retrieve_body($res);
-                            $body_json = json_decode($body);
-
-                            if ($body_json && isset($body_json->result)) {
-
-                                if ($google_api_key && strlen($google_api_key) > 0) {
-                                    $photo = $this->business_avatar($body_json->result, $google_api_key);
-                                    $body_json->result->business_photo = $photo;
-                                }
-
-                                $this->save_reviews($body_json->result, $local_img);
-
-                                $result = array(
-                                    'id'      => $body_json->result->place_id,
-                                    'name'    => $body_json->result->name,
-                                    'photo'   => strlen($body_json->result->business_photo) ?
-                                                     $body_json->result->business_photo : $body_json->result->icon,
-                                    'reviews' => $body_json->result->reviews
-                                );
-                                $status = 'success';
-
-                                if ($_POST['feed_id']) {
-                                    delete_transient('grw_feed_' . GRW_VERSION . '_' . $_POST['feed_id'] . '_reviews', false);
-                                }
-                            } else {
-                                $result = $body_json;
-                                $status = 'failed';
-                            }
-                            $response = compact('status', 'result');
+                // Cache clear
+                if ($_POST['feed_id']) {
+                    delete_transient('grw_feed_' . GRW_VERSION . '_' . $_POST['feed_id'] . '_reviews', false);
+                } else {
+                    $feed_ids = get_option('grw_feed_ids');
+                    if (!empty($feed_ids)) {
+                        $ids = explode(",", $feed_ids);
+                        foreach ($ids as $id) {
+                            delete_transient('grw_feed_' . GRW_VERSION . '_' . $id . '_reviews', false);
                         }
-                        header('Content-type: text/javascript');
-                        echo json_encode($response);
-                        die();
                     }
-                break;
+                }
 
-                case 'grw_hide_review':
-                    if (current_user_can('manage_options')) {
-                        if (isset($_POST['grw_wpnonce']) === false) {
-                            $error = __('Unable to call request. Make sure you are accessing this page from the Wordpress dashboard.', 'widget-google-reviews');
-                            $response = compact('error');
-                        } else {
-                            check_admin_referer('grw_wpnonce', 'grw_wpnonce');
-
-                            $review = $wpdb->get_row(
-                                $wpdb->prepare(
-                                    "SELECT * FROM " . $wpdb->prefix . Database::REVIEW_TABLE .
-                                    " WHERE id = %d", $_POST['id']
-                                )
-                            );
-
-                            $hide = $review->hide == '' ? 'y' : '';
-                            $wpdb->update($wpdb->prefix . Database::REVIEW_TABLE, array('hide' => $hide), array('id' => $_POST['id']));
-
-                            // Cache clear
-                            if ($_POST['feed_id']) {
-                                delete_transient('grw_feed_' . GRW_VERSION . '_' . $_POST['feed_id'] . '_reviews', false);
-                            } else {
-                                $feed_ids = get_option('grw_feed_ids');
-                                if (!empty($feed_ids)) {
-                                    $ids = explode(",", $feed_ids);
-                                    foreach ($ids as $id) {
-                                        delete_transient('grw_feed_' . GRW_VERSION . '_' . $id . '_reviews', false);
-                                    }
-                                }
-                            }
-
-                            $response = array('hide' => $hide);
-                        }
-                        header('Content-type: text/javascript');
-                        echo json_encode($response);
-                        die();
-                    }
-                break;
-
+                $response = array('hide' => $hide);
             }
+            header('Content-type: text/javascript');
+            echo json_encode($response);
+            die();
+        }
+    }
+
+    public function connect_google() {
+        if (current_user_can('manage_options')) {
+            if (isset($_POST['grw_wpnonce']) === false) {
+                $error = __('Unable to call request. Make sure you are accessing this page from the Wordpress dashboard.', 'widget-google-reviews');
+                $response = compact('error');
+            } else {
+                check_admin_referer('grw_wpnonce', 'grw_wpnonce');
+
+                if (isset($_POST['key'])) {
+                    $key = sanitize_text_field(wp_unslash($_POST['key']));
+                    if (strlen($key) > 0) {
+                        update_option('grw_google_api_key', $key);
+                    }
+                }
+                $google_api_key = get_option('grw_google_api_key');
+
+                $id = sanitize_text_field(wp_unslash($_POST['id']));
+                $lang = sanitize_text_field(wp_unslash($_POST['lang']));
+                $local_img = sanitize_text_field(wp_unslash($_POST['local_img']));
+
+                if ($google_api_key && strlen($google_api_key) > 0) {
+                    $url = $this->api_url($id, $google_api_key, $lang);
+                } else {
+                    $url = 'https://app.richplugins.com/gpaw/get/json' .
+                           '?siteurl=' . get_option('siteurl') .
+                           '&authcode=' . get_option('grw_auth_code') .
+                           '&pid=' . $id;
+                    if ($lang && strlen($lang) > 0) {
+                        $url = $url . '&lang=' . $lang;
+                    }
+                }
+
+                $res = wp_remote_get($url);
+                $body = wp_remote_retrieve_body($res);
+                $body_json = json_decode($body);
+
+                if ($body_json && isset($body_json->result)) {
+
+                    if ($google_api_key && strlen($google_api_key) > 0) {
+                        $photo = $this->business_avatar($body_json->result, $google_api_key);
+                        $body_json->result->business_photo = $photo;
+                    }
+
+                    $this->save_reviews($body_json->result, $local_img);
+
+                    $result = array(
+                        'id'      => $body_json->result->place_id,
+                        'name'    => $body_json->result->name,
+                        'photo'   => strlen($body_json->result->business_photo) ?
+                                         $body_json->result->business_photo : $body_json->result->icon,
+                        'reviews' => $body_json->result->reviews
+                    );
+                    $status = 'success';
+
+                    if ($_POST['feed_id']) {
+                        delete_transient('grw_feed_' . GRW_VERSION . '_' . $_POST['feed_id'] . '_reviews', false);
+                    }
+                } else {
+                    $result = $body_json;
+                    $status = 'failed';
+                }
+                $response = compact('status', 'result');
+            }
+            header('Content-type: text/javascript');
+            echo json_encode($response);
+            die();
         }
     }
 
     function grw_refresh_reviews($args) {
-        $google_api_key = get_option('grw_google_api_key');
-        if (!$google_api_key) {
-            return;
-        }
 
         $place_id = $args[0];
         $reviews_lang = $args[1];
         $local_img = isset($args[2]) ? $args[2] : 'false';
 
-        $url = $this->api_url($place_id, $google_api_key, $reviews_lang);
+        $url = '';
+        $google_api_key = get_option('grw_google_api_key');
+        $api_key_filled = $google_api_key && strlen($google_api_key) > 0;
 
-        $res = wp_remote_get($url);
-        $body = wp_remote_retrieve_body($res);
-        $body_json = json_decode($body);
+        if ($api_key_filled) {
 
-        if ($body_json && isset($body_json->result)) {
-            $photo = $this->business_avatar($body_json->result, $google_api_key);
-            $body_json->result->business_photo = $photo;
+            $url = $this->api_url($place_id, $google_api_key, $reviews_lang);
 
-            $this->save_reviews($body_json->result, $local_img);
+        } else {
+
+            $url = 'https://app.richplugins.com/gpaw/update/json' .
+                   '?siteurl=' . get_option('siteurl') .
+                   '&authcode=' . get_option('grw_auth_code') .
+                   '&pid=' . $place_id .
+                   '&time=' . time();
+            if ($reviews_lang && strlen($reviews_lang) > 0) {
+                $url = $url . '&lang=' . $reviews_lang;
+            }
+        }
+
+        if (strlen($url) > 0) {
+            $res = wp_remote_get($url);
+            $body = wp_remote_retrieve_body($res);
+            $body_json = json_decode($body);
+
+            if ($body_json && isset($body_json->result)) {
+
+                if ($api_key_filled) {
+                    $photo = $this->business_avatar($body_json->result, $google_api_key);
+                    $body_json->result->business_photo = $photo;
+                }
+
+                $this->save_reviews($body_json->result, $local_img);
+            }
         }
     }
 

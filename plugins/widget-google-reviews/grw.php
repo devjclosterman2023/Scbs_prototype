@@ -3,7 +3,7 @@
 Plugin Name: Plugin for Google Reviews
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
-Version: 2.5
+Version: 2.6.1
 Author: RichPlugins <support@richplugins.com>
 Author URI: https://richplugins.com
 Text Domain: widget-google-reviews
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 
 require(ABSPATH . 'wp-includes/version.php');
 
-define('GRW_VERSION'          , '2.5');
+define('GRW_VERSION'          , '2.6.1');
 define('GRW_PLUGIN_FILE'      , __FILE__);
 define('GRW_PLUGIN_URL'       , plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
 define('GRW_ASSETS_URL'       , GRW_PLUGIN_URL . '/assets/');
@@ -51,7 +51,7 @@ function grw_plugin_row_meta($input, $file) {
     $links = array(
         //'<a href="' . admin_url('admin.php?page=grw-support') . '" target="_blank">' . __('View Documentation', 'widget-google-reviews') . '</a>',
 
-        '<a href="' . esc_url('https://richplugins.com/business-reviews-bundle-wordpress-plugin') . '" target="_blank">' . __('Upgrade to Business', 'widget-google-reviews') . ' &raquo;</a>',
+        '<a href="' . esc_url('https://richplugins.com/business-reviews-bundle-wordpress-plugin?promo=GRGROW23') . '" target="_blank">' . __('Upgrade to Business', 'widget-google-reviews') . ' &raquo;</a>',
 
         '<a href="' . esc_url('https://wordpress.org/support/plugin/widget-google-reviews/reviews/#new-post') . '" target="_blank">' . __('Rate plugin', 'widget-google-reviews') . ' <span style="color:#ffb900;font-size:1.5em;position:relative;top:0.1em;">★★★★★</span></a>',
     );
